@@ -9,17 +9,7 @@ namespace Admin
 {
     class Program
     {
-        static void InsertProfessor(SqlConnection conn, Professor prof)
-        {
-            var _insert = "INSERT INTO PROFESSORS (Name, Title)" +
-                "VALUES (@Name, @Title)";
 
-            var cmd = new SqlCommand(_insert, conn);
-
-            cmd.Parameters.AddWithValue("Name", prof.Professor_Name);
-            cmd.Parameters.AddWithValue("Title", prof.Professor_Title);
-            cmd.ExecuteScalar();
-        }
 
         static void Main(string[] args)
         {
@@ -42,8 +32,8 @@ namespace Admin
                     Professor_Title = "Dr.",
                 };
                 conn.Open();
-                InsertProfessor(conn, newProf);
-                InsertProfessor(conn, newerProf);
+                Professor.InsertProfessor(conn, newProf);
+                Professor.InsertProfessor(conn, newerProf);
 
             }
         }
