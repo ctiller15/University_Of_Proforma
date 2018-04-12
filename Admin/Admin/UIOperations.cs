@@ -21,5 +21,25 @@ namespace Admin
                 $"(3) View all students enrolled in a class\n" +
                 $"(4) View all classes, teachers, and students\n");
         }
+
+        static public void ProfessorPrompt()
+        {
+            Console.WriteLine("Time to add your professor!");
+        }
+
+        static public void ClassPrompt()
+        {
+            Console.WriteLine("Time to create a new class");
+        }
+
+        static public void ViewEnrollments()
+        {
+            Console.WriteLine("Viewing enrollments...");
+        }
+
+        static public void ViewClasses()
+        {
+            Console.WriteLine("Viewing classes...");
+        }
     }
 }
