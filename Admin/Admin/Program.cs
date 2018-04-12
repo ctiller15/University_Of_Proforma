@@ -17,6 +17,10 @@ namespace Admin
             const string CONNECTION_STRING =
     @"Server=localhost\SQLEXPRESS;Database=University_Of_Proforma;Trusted_Connection=True;";
 
+            UIOperations.IntroduceUser();
+            UIOperations.DisplayOptions();
+            Console.ReadLine();
+
             // Open the connection
             using (var conn = new SqlConnection(CONNECTION_STRING))
             {
