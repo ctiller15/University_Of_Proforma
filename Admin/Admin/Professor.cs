@@ -7,24 +7,22 @@ using System.Threading.Tasks;
 
 namespace Admin
 {
-    class Professor
+    class Professor : ISQLOperations
     {
         public int Professor_ID { get; set; }
         public string Professor_Name { get; set; }
         public string Professor_Title { get; set; }
-        // Contains professor ID
-        // Contains professor Name
-        // Contains professor Title
 
-        static public void InsertProfessor(SqlConnection conn, Professor prof)
+        // Inserts SQL data into database.
+        public void Insert(SqlConnection conn)
         {
             var _insert = "INSERT INTO PROFESSORS (Name, Title)" +
                 "VALUES (@Name, @Title)";
 
             var cmd = new SqlCommand(_insert, conn);
 
-            cmd.Parameters.AddWithValue("Name", prof.Professor_Name);
-            cmd.Parameters.AddWithValue("Title", prof.Professor_Title);
+            cmd.Parameters.AddWithValue("Name", this.Professor_Name);
+            cmd.Parameters.AddWithValue("Title", this.Professor_Title);
             cmd.ExecuteScalar();
         }
 

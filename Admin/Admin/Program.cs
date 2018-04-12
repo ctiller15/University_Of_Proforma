@@ -32,8 +32,8 @@ namespace Admin
                     Professor_Title = "Dr.",
                 };
                 conn.Open();
-                Professor.InsertProfessor(conn, newProf);
-                Professor.InsertProfessor(conn, newerProf);
+                newProf.Insert(conn);
+                newerProf.Insert(conn);
 
                 var newCourse = new Course
                 {
@@ -43,7 +43,7 @@ namespace Admin
                     Course_Room = "VAB101",
                     Start_Time = DateTime.Now
                 };
-                Course.InsertCourse(conn, newCourse);
+                newCourse.Insert(conn);
 
             }
         }
