@@ -35,6 +35,16 @@ namespace Admin
                 Professor.InsertProfessor(conn, newProf);
                 Professor.InsertProfessor(conn, newerProf);
 
+                var newCourse = new Course
+                {
+                    Course_Number = 1,
+                    Course_Level = 100,
+                    Course_Name = "Intro to C#",
+                    Course_Room = "VAB101",
+                    Start_Time = DateTime.Now
+                };
+                Course.InsertCourse(conn, newCourse);
+
             }
         }
     }
