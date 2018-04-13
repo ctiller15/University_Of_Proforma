@@ -58,11 +58,21 @@ namespace Admin
                     conn.Close();
                     Console.WriteLine("Course created successfully");
                 }
-
             }
             else if (userChoice == "3")
             {
-                StudentPrompt();
+                var StudentInfo = StudentPrompt();
+
+                // Item1 = Full Name, Item2 = Email, Item3 = PhoneNumber, Item4 = Major.
+                var newStudent = new Student(StudentInfo.Item1, StudentInfo.Item2, StudentInfo.Item3, StudentInfo.Item4);
+                // Insert Into DB.
+                using (var conn = new SqlConnection(CONNECTION_STRING))
+                {
+                    conn.Open();
+                    newStudent.Insert(conn);
+                    conn.Close();
+                    Console.WriteLine("Student created successfully");
+                }
             }
             else if (userChoice == "4")
             {
@@ -79,6 +89,7 @@ namespace Admin
 
         }
 
+        // Prompts for a professor name/title, and returns the result.
         static public Tuple<string, string> ProfessorPrompt()
         {
             // DB takes in both a name and a title
@@ -95,6 +106,7 @@ namespace Admin
             return Tuple.Create(name, title);
         }
 
+        // Prompts for a course's information, and returns the result.
         static public Tuple<int, int, string, string, DateTime> ClassPrompt()
         {
             //Console.WriteLine("Time to create a new class");
@@ -119,12 +131,37 @@ namespace Admin
             var CourseDate = new DateTime(DateTimeValues[0], DateTimeValues[1], DateTimeValues[2], DateTimeValues[3], DateTimeValues[4], 0);
             Console.WriteLine(CourseDate);
             return Tuple.Create(courseNum, Course_Level, Course_Name, Course_Room, CourseDate);
-
         }
 
-        static public void StudentPrompt()
+        // prompt for a students information and return the result.
+        static public Tuple<string, string, string, string> StudentPrompt()
         {
-            Console.WriteLine("Adding a student...");
+            //Console.WriteLine("Adding a student...");
+            string FullName;
+            string Fname;
+            string Lname;
+            string Email;
+            string PhoneNumber;
+            string Major;
+
+            Console.WriteLine("What is the First Name?");
+            Fname = Console.ReadLine();
+
+            Console.WriteLine("What is the Last Name?");
+            Lname = Console.ReadLine();
+
+            FullName = $"{Fname} {Lname}";
+
+            Console.WriteLine("What is the email?");
+            Email = Console.ReadLine();
+
+            Console.WriteLine("What is the phone number?");
+            PhoneNumber = Console.ReadLine();
+
+            Console.WriteLine("What is the major?");
+            Major = Console.ReadLine();
+
+            return Tuple.Create(FullName, Email, PhoneNumber, Major);
         }
 
         static public void ViewEnrollments()
