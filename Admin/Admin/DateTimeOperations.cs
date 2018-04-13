@@ -38,12 +38,10 @@ namespace Admin
                 if(lowerBound <= checkedVal && upperBound >= checkedVal)
                 {
                     Console.WriteLine("This is a valid number!");
-                    // Return True;
                     return true;
                 } else
                 {
                     Console.WriteLine("This is not a valid number. Please try again.");
-                    // Return False;
                     return false;
                 }
             } else
@@ -60,7 +58,6 @@ namespace Admin
 
             while (!isValidDate)
             {
-                //Console.WriteLine("What is the Start Year?\n");
                 Console.WriteLine(prompt);
                 promptAnswer = Console.ReadLine();
                 isValidDate = CheckValidBounds(promptAnswer, lower, upper);
