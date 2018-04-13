@@ -46,7 +46,15 @@ namespace Admin
 
         static public void ProfessorPrompt()
         {
-            Console.WriteLine("Time to add your professor!");
+            // DB takes in both a name and a title
+            string name;
+            string title;
+            //Console.WriteLine("Time to add your professor!");
+            Console.WriteLine("What is your professor's name?\n");
+            name = Console.ReadLine();
+            Console.WriteLine("What is your professor's title? (Mr. Mrs. Dr, etc)\n");
+            title = Console.ReadLine();
+            Console.WriteLine($"{title} {name}");
         }
 
         static public void ClassPrompt()
