@@ -22,6 +22,28 @@ namespace Admin
                 $"(4) View all classes, teachers, and students\n");
         }
 
+        static public void HandleUserChoice()
+        {
+            string userChoice = Console.ReadLine();
+            if(userChoice == "1")
+            {
+                ProfessorPrompt();
+            } else if (userChoice == "2")
+            {
+                ClassPrompt();
+            } else if (userChoice == "3")
+            {
+                ViewEnrollments();
+            } else if (userChoice == "4")
+            {
+                ViewClasses();
+            } else
+            {
+                Console.WriteLine("Not a valid option");
+            }
+
+        }
+
         static public void ProfessorPrompt()
         {
             Console.WriteLine("Time to add your professor!");

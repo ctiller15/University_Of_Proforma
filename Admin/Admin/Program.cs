@@ -18,7 +18,15 @@ namespace Admin
     @"Server=localhost\SQLEXPRESS;Database=University_Of_Proforma;Trusted_Connection=True;";
 
             UIOperations.IntroduceUser();
-            UIOperations.DisplayOptions();
+
+            bool IsRunning = true;
+
+            while(IsRunning)
+            {
+                UIOperations.DisplayOptions();
+                UIOperations.HandleUserChoice();
+            }
+
             Console.ReadLine();
 
             // Open the connection
