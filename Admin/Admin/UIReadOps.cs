@@ -12,7 +12,10 @@ namespace Admin
         static public string ShowReadOperations()
         {
             Console.WriteLine("(1) View class Enrollments\n" +
-                "(2) View Classes, PRofessors, and enrollments\n");
+                "(2) View Classes, Professors, and enrollments\n" +
+                "(3) View Professors\n" +
+                "(4) View Students\n" +
+                "(5) View Courses \n");
 
             string userchoice = Console.ReadLine();
             return userchoice;
@@ -35,9 +38,23 @@ namespace Admin
                     var prof = GetAllProfessors(conn);
                 }
 
+            } 
+            else if (userchoice == "4")
+            {
+                Console.WriteLine("Viewing students...");
+            } else if (userchoice == "5") {
+                Console.WriteLine("Viewing Courses...");
             }
             return true;
         }
+
+        // Query to select all students in a given course:
+ //       SELECT FullName AS 'Enrolled_Students'
+	//FROM[dbo].[Courses]
+ //       JOIN Enrollment ON Courses.Course_ID = Enrollment.Enroll_ID
+ //       JOIN Students ON Enrollment.Student_ID = Students.Student_ID
+    
+ //       WHERE Course_Name = 'Intro to C#';
 
         static List<Professor> GetAllProfessors(SqlConnection conn)
         {
