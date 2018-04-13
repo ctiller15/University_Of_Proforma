@@ -38,6 +38,16 @@ namespace Admin
                     string choice = UICreateOps.ShowCreateOperations();
                     chosen = UICreateOps.HandleCreateOperations(choice);
                 }
+            } else if(userChoice == "2")
+            {
+                bool chosen = false;
+                // move to read menu.
+                while (!chosen == true)
+                {
+                    string choice = UIReadOps.ShowReadOperations();
+                    chosen = UIReadOps.HandleReadOperations(choice);
+                }
+                //UIReadOps.ShowReadOperations();
             }
             //if (userChoice == "1")
             //{

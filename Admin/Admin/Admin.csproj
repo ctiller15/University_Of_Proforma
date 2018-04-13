@@ -53,6 +53,7 @@
     <Compile Include="Student.cs" />
     <Compile Include="UICreateOps.cs" />
     <Compile Include="UIOperations.cs" />
+    <Compile Include="UIReadOps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
