@@ -19,14 +19,15 @@ namespace Admin
         {
             Console.WriteLine($"(1) Add a Professor\n" +
                 $"(2) Add a Class\n" +
-                $"(3) View all students enrolled in a class\n" +
-                $"(4) View all classes, teachers, and students\n");
+                $"(3) Add a Student\n" +
+                $"(4) View all students enrolled in a class\n" +
+                $"(5) View all classes, teachers, and students\n");
         }
 
         static public void HandleUserChoice()
         {
             string userChoice = Console.ReadLine();
-            if(userChoice == "1")
+            if (userChoice == "1")
             {
                 var ProfessorInfo = ProfessorPrompt();
                 // Check the information if you so please.
@@ -34,23 +35,44 @@ namespace Admin
                 // Item 1 = name, Item2 = title
                 var newProf = new Professor(ProfessorInfo.Item1, ProfessorInfo.Item2);
                 // Insert into DB.
-                using(var conn = new SqlConnection(CONNECTION_STRING))
+                using (var conn = new SqlConnection(CONNECTION_STRING))
                 {
                     conn.Open();
                     newProf.Insert(conn);
                     conn.Close();
+                    Console.WriteLine("Professor created successfully");
                 }
 
-            } else if (userChoice == "2")
+            }
+            else if (userChoice == "2")
             {
-                ClassPrompt();
-            } else if (userChoice == "3")
+                var ClassInfo = ClassPrompt();
+
+                // Item1 = Number, Item2 = Level, Item3 = Course Name, Item4 = Course Room, Item5 = Start Time.
+                var newClass = new Course(ClassInfo.Item1, ClassInfo.Item2, ClassInfo.Item3, ClassInfo.Item4, ClassInfo.Item5);
+                // Insert into DB.
+                using (var conn = new SqlConnection(CONNECTION_STRING))
+                {
+                    conn.Open();
+                    newClass.Insert(conn);
+                    conn.Close();
+                    Console.WriteLine("Course created successfully");
+                }
+
+            }
+            else if (userChoice == "3")
+            {
+                StudentPrompt();
+            }
+            else if (userChoice == "4")
             {
                 ViewEnrollments();
-            } else if (userChoice == "4")
+            }
+            else if (userChoice == "5")
             {
                 ViewClasses();
-            } else
+            }
+            else
             {
                 Console.WriteLine("Not a valid option");
             }
@@ -73,19 +95,19 @@ namespace Admin
             return Tuple.Create(name, title);
         }
 
-        static public void ClassPrompt()
+        static public Tuple<int, int, string, string, DateTime> ClassPrompt()
         {
             //Console.WriteLine("Time to create a new class");
-            string courseNum;
-            string Course_Level;
+            int courseNum;
+            int Course_Level;
             string Course_Name;
             string Course_Room;
 
             Console.WriteLine("What is the Course Number?\n");
-            courseNum = Console.ReadLine();
+            courseNum = Int32.Parse(Console.ReadLine());
 
             Console.WriteLine("What is the Course Level?\n");
-            Course_Level = Console.ReadLine();
+            Course_Level = Int32.Parse(Console.ReadLine());
 
             Console.WriteLine("What is the Course Name?\n");
             Course_Name = Console.ReadLine();
@@ -93,8 +115,16 @@ namespace Admin
             Console.WriteLine("What is the Course Room?\n");
             Course_Room = Console.ReadLine();
 
-            DateTimeOperations.DateTimePrompt();
+            int[] DateTimeValues = DateTimeOperations.DateTimePrompt();
+            var CourseDate = new DateTime(DateTimeValues[0], DateTimeValues[1], DateTimeValues[2], DateTimeValues[3], DateTimeValues[4], 0);
+            Console.WriteLine(CourseDate);
+            return Tuple.Create(courseNum, Course_Level, Course_Name, Course_Room, CourseDate);
 
+        }
+
+        static public void StudentPrompt()
+        {
+            Console.WriteLine("Adding a student...");
         }
 
         static public void ViewEnrollments()

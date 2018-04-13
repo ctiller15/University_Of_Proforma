@@ -8,7 +8,7 @@ namespace Admin
 {
     class DateTimeOperations
     {
-        static public void DateTimePrompt()
+        static public int[] DateTimePrompt()
         {
             // 0 = Year, 1 = Month, 2 = Day, 3 = Hour, 4 = Minute
             PromptInfo[] dateTimeInfo = new PromptInfo[5] {
@@ -26,6 +26,7 @@ namespace Admin
             {
                 DateTimeResult[i] = PromptIndividualDateNumber(dateTimeInfo[i].PromptText, dateTimeInfo[i].LowerBound, dateTimeInfo[i].UpperBound);
             }
+            return DateTimeResult;
         }
 
         // Checks if a string representation of a number fits a given set of numeric bounds.

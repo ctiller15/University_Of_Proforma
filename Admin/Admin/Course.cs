@@ -31,5 +31,14 @@ namespace Admin
             cmd.Parameters.AddWithValue("Start_Time", this.Start_Time);
             cmd.ExecuteScalar();
         }
+
+        public Course(int num, int level, string name, string room, DateTime time)
+        {
+            this.Course_Number = num;
+            this.Course_Level = level;
+            this.Course_Name = name;
+            this.Course_Room = room;
+            this.Start_Time = time;
+        }
     }
 }
