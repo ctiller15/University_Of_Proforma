@@ -80,7 +80,11 @@ namespace Admin
             string Course_Level;
             string Course_Name;
             string Course_Room;
-            string Start_Time;
+            string Start_Year;
+            string Start_Month;
+            string Start_Day;
+            string Start_Hour;
+            string Start_Minute;
 
             Console.WriteLine("What is the Course Number?\n");
             courseNum = Console.ReadLine();
@@ -94,8 +98,24 @@ namespace Admin
             Console.WriteLine("What is the Course Room?\n");
             Course_Room = Console.ReadLine();
 
-            Console.WriteLine("What is the Start Time?");
-            Start_Time = Console.ReadLine();
+
+            // Getting date informtion
+            // Will eventually need some validation. Break into own function.
+
+            Console.WriteLine("What is the Start Year?");
+            Start_Year = Console.ReadLine();
+
+            Console.WriteLine("What is the Start Month?\n");
+            Start_Month = Console.ReadLine();
+
+            Console.WriteLine("What is the Start Day?\n");
+            Start_Day = Console.ReadLine();
+
+            Console.WriteLine("What is the Start Hour? (0-24)");
+            Start_Hour = Console.ReadLine();
+
+            Console.WriteLine("What is the Start Minute? (0-59)");
+            Start_Minute = Console.ReadLine();
         }
 
         static public void ViewEnrollments()
