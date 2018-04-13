@@ -30,5 +30,11 @@ namespace Admin
         {
 
         }
+
+        public Professor(string name, string title)
+        {
+            this.Professor_Name = name;
+            this.Professor_Title = title;
+        }
     }
 }

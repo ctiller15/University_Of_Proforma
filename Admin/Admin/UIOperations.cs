@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Admin
 {
-    class UIOperations
+    class UIOperations : DatabaseConnections
     {
         static public void IntroduceUser()
         {
@@ -27,7 +28,20 @@ namespace Admin
             string userChoice = Console.ReadLine();
             if(userChoice == "1")
             {
-                ProfessorPrompt();
+                var ProfessorInfo = ProfessorPrompt();
+                // Check the information if you so please.
+
+                // Item 1 = name, Item2 = title
+                var newProf = new Professor(ProfessorInfo.Item1, ProfessorInfo.Item2);
+                // Insert into DB.
+                using(var conn = new SqlConnection(CONNECTION_STRING))
+                {
+                    conn.Open();
+                    newProf.Insert(conn);
+                    conn.Close();
+                }
+
+
             } else if (userChoice == "2")
             {
                 ClassPrompt();
@@ -44,17 +58,20 @@ namespace Admin
 
         }
 
-        static public void ProfessorPrompt()
+        static public Tuple<string, string> ProfessorPrompt()
         {
             // DB takes in both a name and a title
             string name;
             string title;
-            //Console.WriteLine("Time to add your professor!");
+
             Console.WriteLine("What is your professor's name?\n");
             name = Console.ReadLine();
+
             Console.WriteLine("What is your professor's title? (Mr. Mrs. Dr, etc)\n");
             title = Console.ReadLine();
+
             Console.WriteLine($"{title} {name}");
+            return Tuple.Create(name, title);
         }
 
         static public void ClassPrompt()
