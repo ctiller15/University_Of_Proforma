@@ -47,6 +47,7 @@
     <Compile Include="DateTimeOperations.cs" />
     <Compile Include="Professor.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="PromptInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLOperations.cs" />
     <Compile Include="UIOperations.cs" />

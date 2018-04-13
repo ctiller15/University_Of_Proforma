@@ -10,61 +10,22 @@ namespace Admin
     {
         static public void DateTimePrompt()
         {
-            int Start_Year;
-            int Start_Month;
-            int Start_Day;
-            int Start_Hour;
-            int Start_Minute;
+            // 0 = Year, 1 = Month, 2 = Day, 3 = Hour, 4 = Minute
+            PromptInfo[] dateTimeInfo = new PromptInfo[5] {
+                new PromptInfo("What is the Start Year?\n", 0, int.MaxValue),
+                new PromptInfo("What is the Start Month? (1-12)\n", 1, 12),
+                new PromptInfo("What is the Start Day?\n", 1, 31),
+                new PromptInfo("What is the Start Hour? (0-23)\n", 0, 23),
+                new PromptInfo("What is the Start Minute? (0-59)\n", 0, 59)
+            };
 
-            //bool isValidDate = false;
+            int[] DateTimeResult = new int[5];
             // Getting date informtion
 
-            //while (!isValidDate)
-            //{
-            //    Console.WriteLine("What is the Start Year?\n");
-            //    Start_Year = Console.ReadLine();
-            //    isValidDate = CheckValidBounds(Start_Year, 0, int.MaxValue);
-            //}
-            //isValidDate = false;
-            Start_Year = PromptIndividualDateNumber("What is the Start Year?\n", 0, int.MaxValue);
-
-            Start_Month = PromptIndividualDateNumber("What is the Start Month? (1-12)\n", 1, 12);
-            //while(!isValidDate)
-            //{
-            //    Console.WriteLine("What is the Start Month? (1-12)\n");
-            //    Start_Month = Console.ReadLine();
-            //    isValidDate = CheckValidBounds(Start_Month, 1, 12);
-            //}
-            //isValidDate = false;
-
-            //while (!isValidDate)
-            //{
-            //    Console.WriteLine("What is the Start Day?\n");
-            //    Start_Day = Console.ReadLine();
-            //    isValidDate = CheckValidBounds(Start_Day, 1, 31);
-            //}
-            //isValidDate = false;
-            Start_Day = PromptIndividualDateNumber("What is the Start Day?\n", 1, 31);
-
-            //while (!isValidDate)
-            //{
-            //    Console.WriteLine("What is the Start Hour? (0-23)\n");
-            //    Start_Hour = Console.ReadLine();
-            //    isValidDate = CheckValidBounds(Start_Hour, 0, 23);
-            //}
-            //isValidDate = false;
-
-            Start_Hour = PromptIndividualDateNumber("What is the Start Hour? (0-23)\n", 0, 23);
-
-            //while (!isValidDate)
-            //{
-            //    Console.WriteLine("What is the Start Minute? (0-59)\n");
-            //    Start_Minute = Console.ReadLine();
-            //    isValidDate = CheckValidBounds(Start_Minute, 0, 59);
-            //}
-
-            Start_Minute = PromptIndividualDateNumber("What is the Start Minute? (0-59)\n", 0, 59);
-
+            for(int i = 0; i < dateTimeInfo.Length; i++)
+            {
+                DateTimeResult[i] = PromptIndividualDateNumber(dateTimeInfo[i].PromptText, dateTimeInfo[i].LowerBound, dateTimeInfo[i].UpperBound);
+            }
         }
 
         // Checks if a string representation of a number fits a given set of numeric bounds.
