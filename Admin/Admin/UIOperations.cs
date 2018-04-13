@@ -41,7 +41,6 @@ namespace Admin
                     conn.Close();
                 }
 
-
             } else if (userChoice == "2")
             {
                 ClassPrompt();
@@ -76,7 +75,27 @@ namespace Admin
 
         static public void ClassPrompt()
         {
-            Console.WriteLine("Time to create a new class");
+            //Console.WriteLine("Time to create a new class");
+            string courseNum;
+            string Course_Level;
+            string Course_Name;
+            string Course_Room;
+            string Start_Time;
+
+            Console.WriteLine("What is the Course Number?\n");
+            courseNum = Console.ReadLine();
+
+            Console.WriteLine("What is the Course Level?\n");
+            Course_Level = Console.ReadLine();
+
+            Console.WriteLine("What is the Course Name?\n");
+            Course_Name = Console.ReadLine();
+
+            Console.WriteLine("What is the Course Room?\n");
+            Course_Room = Console.ReadLine();
+
+            Console.WriteLine("What is the Start Time?");
+            Start_Time = Console.ReadLine();
         }
 
         static public void ViewEnrollments()
