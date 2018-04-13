@@ -36,5 +36,11 @@ namespace Admin
             this.Professor_Name = name;
             this.Professor_Title = title;
         }
+
+        public Professor(SqlDataReader reader)
+        {
+            this.Professor_Name = reader["Name"].ToString();
+            this.Professor_Title = reader["Title"].ToString();
+        }
     }
 }
