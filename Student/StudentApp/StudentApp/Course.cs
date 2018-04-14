@@ -32,6 +32,44 @@ namespace StudentApp
             cmd.ExecuteScalar();
         }
 
+        //static List<Student> GetStudentByCourse(SqlConnection conn, string courseName)
+        //{
+        //    // query database.
+        //    var _select = "SELECT * " +
+        //        "FROM Courses " +
+        //        "JOIN Enrollment ON Courses.Course_ID = Enrollment.Enroll_ID " +
+        //        "JOIN Students ON Enrollment.Student_ID = Students.Student_ID " +
+        //        $"WHERE Course_Name = '{courseName}' ";
+
+        //    var query = new SqlCommand(_select, conn);
+        //    conn.Open();
+        //    var reader = query.ExecuteReader();
+        //    var _rv = new List<Student>();
+        //    // parse results.
+        //    while (reader.Read())
+        //    {
+        //        var _student = new Student(reader);
+        //        Console.WriteLine($"{_student.FullName}");
+        //    }
+        //    conn.Close();
+        //    return _rv;
+        //}
+
+        static public void Select(SqlConnection conn)
+        {
+            var _select = "SELECT Course_ID, Course_Name " +
+                "FROM[dbo].[Courses] ";
+
+            var query = new SqlCommand(_select, conn);
+            var reader = query.ExecuteReader();
+            var _rv = new List<string>();
+            // parse results.
+            while (reader.Read())
+            {
+                Console.WriteLine($"{reader["Course_ID"].ToString()} , {reader["Course_Name"].ToString()}");
+            }
+        }
+
         public Course(int num, int level, string name, string room, DateTime time)
         {
             this.Course_Number = num;
