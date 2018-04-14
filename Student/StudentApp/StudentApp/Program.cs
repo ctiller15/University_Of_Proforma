@@ -10,7 +10,13 @@ namespace StudentApp
     {
         static void Main(string[] args)
         {
-            StudentUI.StudentPrompt();
+            bool isRunning = false;
+            while (!isRunning)
+            {
+                string useroption = StudentUI.StudentPrompt();
+                StudentUI.HandleOption(useroption);
+            }
+
         }
     }
 }
