@@ -37,5 +37,13 @@ namespace Admin
             this.PhoneNumber = number;
             this.Major = major;
         }
+
+        public Student(SqlDataReader reader)
+        {
+            this.FullName = reader["FullName"].ToString();
+            this.Email = reader["Email"].ToString();
+            this.PhoneNumber = reader["PhoneNumber"].ToString();
+            this.Major = reader["Major"].ToString();
+        }
     }
 }

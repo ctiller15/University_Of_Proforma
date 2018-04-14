@@ -26,6 +26,10 @@ namespace Admin
             if (userchoice == "1")
             {
                 Console.WriteLine("Viewing class enrollments...\n");
+                using (var conn = new SqlConnection(CONNECTION_STRING))
+                {
+                    var stud = GetStudentByCourse(conn, "Intro to C#");
+                }
             }
             else if (userchoice == "2")
             {
@@ -41,7 +45,9 @@ namespace Admin
             } 
             else if (userchoice == "4")
             {
-                Console.WriteLine("Viewing students...");
+                //Console.WriteLine("Viewing students...");
+
+
             } else if (userchoice == "5") {
                 Console.WriteLine("Viewing Courses...");
             }
@@ -71,6 +77,29 @@ namespace Admin
             {
                 var _prof = new Professor(reader);
                 Console.WriteLine($"{_prof.Professor_Name} , {_prof.Professor_Title}");
+            }
+            conn.Close();
+            return _rv;
+        }
+
+        static List<Student> GetStudentByCourse(SqlConnection conn, string courseName)
+        {
+            // query database.
+            var _select = "SELECT * " +
+                "FROM Courses " +
+                "JOIN Enrollment ON Courses.Course_ID = Enrollment.Enroll_ID " +
+                "JOIN Students ON Enrollment.Student_ID = Students.Student_ID " +
+                "WHERE Course_Name = 'Intro to C#' ";
+
+            var query = new SqlCommand(_select, conn);
+            conn.Open();
+            var reader = query.ExecuteReader();
+            var _rv = new List<Student>();
+            // parse results.
+            while (reader.Read())
+            {
+                var _student = new Student(reader);
+                Console.WriteLine($"{_student.FullName}");
             }
             conn.Close();
             return _rv;
