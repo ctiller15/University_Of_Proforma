@@ -139,18 +139,11 @@ namespace Admin
             return _rv;
         }
 
-        // Select all Students, Instructors, and Courses
-        //      SELECT Course_Name, Name AS Instructor, FullName AS Student
-        //FROM[dbo].[Courses]
-        //      JOIN Jobs ON Courses.Course_ID = Jobs.Course_ID
-        //      JOIN Professors ON Jobs.Professor_ID = Professors.Professor_ID
 
-        //      JOIN Enrollment ON Courses.Course_ID = Enrollment.Course_ID
-
-        //      JOIN Students ON Enrollment.Student_ID = Students.Student_ID;
         static List<string> GetFullCourseInfo(SqlConnection conn)
         {
             // Query database.
+            // Select all Students, Instructors, and Courses
             var _select =   "SELECT Course_Name, Name AS Instructor, FullName AS Student " +
                             "FROM[dbo].[Courses] " +
                             "JOIN Jobs ON Courses.Course_ID = Jobs.Course_ID " +
