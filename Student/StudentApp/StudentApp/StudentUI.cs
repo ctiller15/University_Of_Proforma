@@ -23,12 +23,26 @@ namespace StudentApp
             if(option == "1")
             {
                 Console.WriteLine("Enrolling in course...\n");
+                string courseName = HandleEnrollment();
+                Enroll(courseName);
                 //EnrollInCourse();
             } else if(option == "2")
             {
                 Console.WriteLine("Viewing my courses...\n");
                 //ViewCourses();
             }
+        }
+
+        static public string HandleEnrollment()
+        {
+            Console.WriteLine("please enter the name of the course you want to enroll in.\n");
+            string course = Console.ReadLine();
+            return course;
+        }
+
+        static public void Enroll(string course)
+        {
+            Console.WriteLine($"Enrolling in {course}...\n");
         }
     }
 }

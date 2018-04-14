@@ -16,7 +16,6 @@ namespace StudentApp
                 string useroption = StudentUI.StudentPrompt();
                 StudentUI.HandleOption(useroption);
             }
-
         }
     }
 }
