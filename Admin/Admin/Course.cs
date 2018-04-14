@@ -40,5 +40,14 @@ namespace Admin
             this.Course_Room = room;
             this.Start_Time = time;
         }
+
+        public Course(SqlDataReader reader)
+        {
+            this.Course_Number = Int32.Parse(reader["Number"].ToString());
+            this.Course_Level = Int32.Parse(reader["Course_Level"].ToString());
+            this.Course_Name = reader["Course_Name"].ToString();
+            this.Course_Room = reader["Course_Room"].ToString();
+            this.Start_Time = DateTime.Parse(reader["Start_Time"].ToString());
+        }
     }
 }

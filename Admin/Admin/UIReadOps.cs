@@ -28,7 +28,11 @@ namespace Admin
                 Console.WriteLine("Viewing class enrollments...\n");
                 using (var conn = new SqlConnection(CONNECTION_STRING))
                 {
-                    var stud = GetStudentByCourse(conn, "Intro to C#");
+                    Console.WriteLine("Which course would you like to see the students of?\n");
+
+                    //string courseName = "Intro to C#";
+                    string courseName = Console.ReadLine();
+                    var stud = GetStudentByCourse(conn, courseName);
                 }
             }
             else if (userchoice == "2")
@@ -50,6 +54,10 @@ namespace Admin
 
             } else if (userchoice == "5") {
                 Console.WriteLine("Viewing Courses...");
+                using (var conn = new SqlConnection(CONNECTION_STRING))
+                {
+                    var courses = GetAllCourses(conn);
+                }
             }
             return true;
         }
@@ -89,7 +97,7 @@ namespace Admin
                 "FROM Courses " +
                 "JOIN Enrollment ON Courses.Course_ID = Enrollment.Enroll_ID " +
                 "JOIN Students ON Enrollment.Student_ID = Students.Student_ID " +
-                "WHERE Course_Name = 'Intro to C#' ";
+                $"WHERE Course_Name = '{courseName}' ";
 
             var query = new SqlCommand(_select, conn);
             conn.Open();
@@ -100,6 +108,26 @@ namespace Admin
             {
                 var _student = new Student(reader);
                 Console.WriteLine($"{_student.FullName}");
+            }
+            conn.Close();
+            return _rv;
+        }
+
+        static List<Course> GetAllCourses(SqlConnection conn)
+        {
+            // Query database.
+            var _select = "SELECT *" +
+                "FROM Courses";
+
+            var query = new SqlCommand(_select, conn);
+            conn.Open();
+            var reader = query.ExecuteReader();
+            var _rv = new List<Course>();
+            // parse results.
+            while (reader.Read())
+            {
+                var _course = new Course(reader);
+                Console.WriteLine($"{_course.Course_Name}");
             }
             conn.Close();
             return _rv;
