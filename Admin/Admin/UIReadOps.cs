@@ -38,6 +38,12 @@ namespace Admin
             else if (userchoice == "2")
             {
                 Console.WriteLine("Viewing everything...");
+                using (var conn = new SqlConnection(CONNECTION_STRING))
+                {
+
+                   var full = GetFullCourseInfo(conn);
+                }
+
             } else if (userchoice == "3")
             {
                 Console.WriteLine("Viewing professors...");
@@ -134,13 +140,39 @@ namespace Admin
         }
 
         // Select all Students, Instructors, and Courses
-  //      SELECT Course_Name, Name AS Instructor, FullName AS Student
-  //FROM[dbo].[Courses]
-  //      JOIN Jobs ON Courses.Course_ID = Jobs.Course_ID
-  //      JOIN Professors ON Jobs.Professor_ID = Professors.Professor_ID
-      
-  //      JOIN Enrollment ON Courses.Course_ID = Enrollment.Course_ID
-      
-  //      JOIN Students ON Enrollment.Student_ID = Students.Student_ID;
+        //      SELECT Course_Name, Name AS Instructor, FullName AS Student
+        //FROM[dbo].[Courses]
+        //      JOIN Jobs ON Courses.Course_ID = Jobs.Course_ID
+        //      JOIN Professors ON Jobs.Professor_ID = Professors.Professor_ID
+
+        //      JOIN Enrollment ON Courses.Course_ID = Enrollment.Course_ID
+
+        //      JOIN Students ON Enrollment.Student_ID = Students.Student_ID;
+        static List<string> GetFullCourseInfo(SqlConnection conn)
+        {
+            // Query database.
+            var _select =   "SELECT Course_Name, Name AS Instructor, FullName AS Student " +
+                            "FROM[dbo].[Courses] " +
+                            "JOIN Jobs ON Courses.Course_ID = Jobs.Course_ID " +
+                            "JOIN Professors ON Jobs.Professor_ID = Professors.Professor_ID " +
+                            "JOIN Enrollment ON Courses.Course_ID = Enrollment.Course_ID " +
+                            "JOIN Students ON Enrollment.Student_ID = Students.Student_ID ";
+
+            var query = new SqlCommand(_select, conn);
+            conn.Open();
+            var reader = query.ExecuteReader();
+            var _rv = new List<string>();
+            // parse results.
+            while (reader.Read())
+            {
+                //var _course = new Course(reader);
+                var Student = reader["Student"].ToString();
+                var Prof = reader["Instructor"].ToString();
+                var Course = reader["Course_Name"].ToString();
+                Console.WriteLine($"{Student} , {Prof} , {Course}");
+            }
+            conn.Close();
+            return _rv;
+        }
     }
 }
