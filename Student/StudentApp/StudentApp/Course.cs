@@ -55,6 +55,7 @@ namespace StudentApp
         //    return _rv;
         //}
 
+            // Could potentially use enums to differentiate between the different searches.
         static public void Select(SqlConnection conn)
         {
             var _select = "SELECT Course_ID, Course_Name " +

@@ -26,7 +26,8 @@ namespace StudentApp
             {
                 Console.WriteLine("Enrolling in course...\n");
                 string courseName = HandleEnrollment();
-                Enroll(courseName);
+                string student = PromptStudent();
+                Enroll(courseName, student);
                 //EnrollInCourse();
             }
             else if (option == "2")
@@ -53,14 +54,38 @@ namespace StudentApp
 
         static public string HandleEnrollment()
         {
-            Console.WriteLine("please enter the name of the course you want to enroll in.\n");
+            Console.WriteLine("please enter the ID of the course you want to enroll in.\n");
             string course = Console.ReadLine();
             return course;
         }
 
-        static public void Enroll(string course)
+        static public string PromptStudent()
         {
-            Console.WriteLine($"Enrolling in {course}...\n");
+            Console.WriteLine("Please enter the ID of the student who wishes to enroll. \n");
+            string student = Console.ReadLine();
+            return student;
+        }
+
+        static public void Enroll(string course, string user)
+        {
+            Console.WriteLine($"Enrolling student {user} in course of ID: {course}...\n");
+            using (var conn = new SqlConnection(CONNECTION_STRING))
+            {
+                conn.Open();
+                var _insert = "INSERT INTO Enrollment (Course_ID, Student_ID)" +
+                    "VALUES (@Course_ID, @Student_ID)";
+
+                var cmd = new SqlCommand(_insert, conn);
+
+                cmd.Parameters.AddWithValue("Course_ID", course);
+                cmd.Parameters.AddWithValue("Student_ID", user);
+
+                cmd.ExecuteScalar();
+                conn.Close();
+            }
+
+            
+
         }
     }
 }
