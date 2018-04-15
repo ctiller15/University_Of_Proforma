@@ -33,7 +33,8 @@ namespace StudentApp
             else if (option == "2")
             {
                 Console.WriteLine("Viewing my courses...\n");
-                //ViewCourses();
+                string student = PromptStudent();
+                ViewStudentCourses(student);
             }
             else if (option == "3")
             {
@@ -61,7 +62,7 @@ namespace StudentApp
 
         static public string PromptStudent()
         {
-            Console.WriteLine("Please enter the ID of the student who wishes to enroll. \n");
+            Console.WriteLine("Please enter the ID of the student. \n");
             string student = Console.ReadLine();
             return student;
         }
@@ -82,10 +83,29 @@ namespace StudentApp
 
                 cmd.ExecuteScalar();
                 conn.Close();
+            }           
+        }
+
+        static public void ViewStudentCourses(string student) {
+            Console.WriteLine($"Viewing student courses...\n");
+            using (var conn = new SqlConnection(CONNECTION_STRING))
+            {
+                conn.Open();
+                var _select = "SELECT Course_Name, Students.Student_ID " +
+                            "FROM[dbo].[Students] " +
+                            "JOIN Enrollment ON Students.Student_ID = Enrollment.Student_ID " +
+                            "JOIN Courses ON Enrollment.Course_ID = Courses.Course_ID " +
+                            $"WHERE Students.Student_ID = {student} ";
+
+                var query = new SqlCommand(_select, conn);
+                var reader = query.ExecuteReader();
+                var _rv = new List<string>();
+                // parse results.
+                while (reader.Read())
+                {
+                    Console.WriteLine($"{reader["Course_Name"].ToString()}");
+                }
             }
-
-            
-
         }
     }
 }
